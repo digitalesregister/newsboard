@@ -1,0 +1,53 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+body {
+    background: #F2F8FB;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.module {
+    flex: 1;
+    margin: 0;
+    padding: 40px;
+}
+.module-inner {
+    background: #FFFFFF;
+    box-shadow: 0 0 16px 0 rgba(122, 122, 122, 0.1);
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+}
+.module:first-of-type {
+    padding-right: 0;
+}
+h1 {
+    color: #474E60;
+    display: inline-block;
+    font-weight: 400;
+    margin: 28px;
+}
+h2 {
+    color: #333;
+    display: inline-block;
+    font-size: 22px;
+    margin: 14px 28px;
+}
+.item {
+    display: flex;
+    padding: 8px 28px;
+}
+.item-first-of-hour {
+    margin-top: 16px;
+}
+.item-left {
+    flex: 12;
+}
+.item-middle {
+    flex: 20;
+}
+.item-right {
+    flex: 3;
+}

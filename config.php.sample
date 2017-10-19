@@ -1,0 +1,6 @@
+<?php
+define('CLIENT_ID', '<your_client_id>');
+define('API_SECRET', '<your_secret>');
+define('API_URL', 'https://<your_school_id>.digitalesregister.it/v1/api/v1/');
+
+define('OAUTH_REDIRECT', 'https://<your_school_id>.digitalesregister.it/v1/login/?client='.CLIENT_ID);
