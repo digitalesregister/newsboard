@@ -8,13 +8,12 @@ function fetchToken ($code) {
     return $result;
 }
 
-function refreshToken($user) {
+function refreshToken() {
     $result = makeSecretAPICall('POST', 'refresh_token', array(
-        'user_id' => $user->id,
-        'refresh_token' => $user->refresh_token,
+        'user_id' => $_SESSION['user_id'],
+        'refresh_token' => $_SESSION['refresh_token'],
     ));
 
-    $_SESSION['user_id'] = $result->user_id;
     $_SESSION['token'] = $result->token;
 
     return $result;
@@ -41,7 +40,7 @@ function makeSecretAPICall($method, $url, $payload) {
     return $result;
 }
 
-function makeAPICall($method, $url, $user, $payload = null, $try=0) {
+function makeAPICall($method, $url, $payload = null, $try=0) {
 
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, API_URL.$url);
@@ -56,23 +55,24 @@ function makeAPICall($method, $url, $user, $payload = null, $try=0) {
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
         'Content-Type: application/json',
         'API-CLIENT-ID: '.CLIENT_ID,
-        'API-TOKEN: '.$user->token,
+        'API-TOKEN: '.$_SESSION['token'],
     ));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-    $response = curl_exec($curl);
-    $result = json_decode($response);
+    $result = curl_exec($curl);
+    $result = json_decode($result);
+    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    curl_close($curl);
 
     // refresh the token if we get a 400 status code
-    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     if ($status == 403) {
         if ($try == 0) {
-            refreshToken($user);
-            return makeAPICall($method, $url, $payload, $user, 1);
+            refreshToken();
+            return makeAPICall($method, $url, $payload, 1);
         } else {
             return null;
         }
     }
-    curl_close($curl);
     return $result;
 }

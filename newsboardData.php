@@ -27,10 +27,10 @@ $user = (object) array(
 );
 
 // get room bookings
-$bookings = makeAPICall('GET', 'room/upcoming_bookings', $user);
+$bookings = makeAPICall('GET', 'room/upcoming_bookings');
 
 // get substitutions
-$substitutions = makeAPICall('GET', 'lesson/upcoming_substitutions', $user);
+$substitutions = makeAPICall('GET', 'lesson/upcoming_substitutions');
 
 $response->data = (object) array(
     'substitutions' => $substitutions,
