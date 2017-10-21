@@ -12,5 +12,4 @@ Copy `config.php.sample` to `config.php` and enter your credentials.
 
 
 ## To Do
-- there's a bug when refreshing the token (needs investigation)
 - permanently store the refresh_token in a safe way (not in $_SESSION)
