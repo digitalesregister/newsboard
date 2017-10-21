@@ -1,8 +1,13 @@
 var newsboard = angular.module('newsboard', []);
 
+var viewModes = {
+    newsboard: 'newsboard',
+    oauth: 'oauth',
+};
+
 newsboard.controller('NewsboardController', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
 
-    $scope.test = 'hallo';
+    $scope.viewMode = viewModes.newsboard;
 
     $scope.init = function () {
         $scope.loadData();
@@ -34,7 +39,7 @@ newsboard.controller('NewsboardController', ['$scope', '$http', '$interval', fun
             var data = response.data;
             if (data.error) {
                 if (data.error === 403) {
-                    //document.location.href = 'http://192.168.56.101/register/v1/login?client_id=newsboard';
+                    $scope.redirectToOAuth();
                 } else {
                     alert(data.error);
                 }
@@ -66,5 +71,9 @@ newsboard.controller('NewsboardController', ['$scope', '$http', '$interval', fun
             console.log(error);
         });
     };
+
+    $scope.redirectToOAuth = function () {
+        $scope.viewMode = viewModes.oauth;
+    }
 
 }]);

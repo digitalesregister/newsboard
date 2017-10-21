@@ -17,7 +17,7 @@
         <script src="js/newsboard.js"></script>
     </head>
     <body ng-app="newsboard" ng-controller="NewsboardController" ng-init="init()">
-        <div class="module" ng-repeat="module in modules">
+        <div class="module" ng-repeat="module in modules" ng-show="viewMode=='newsboard'">
             <div class="module-inner">
                 <h1>{{module.title}}</h1>
                 <div ng-repeat="day in module.days">
@@ -35,6 +35,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="oauth" ng-show="viewMode=='oauth'">
+            Bitte Melden Sie sich mit Ihrem "Digitales Register" Benutzernamen und Passwort an.<br>
+            <a href="./redirect.php">Zur Anmeldung</a>
         </div>
     </body>
 </html>
